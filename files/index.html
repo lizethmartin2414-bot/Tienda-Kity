@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitty · Accesorios, belleza, papelería y regalos</title>
+  <meta name="description" content="Accesorios, belleza, papelería y regalos con detalles que se quedan en el corazón.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="#inicio" class="logo">Kitty<span class="logo-dot"></span></a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#categorias">Categorías</a>
+      <a href="#productos">Productos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-btn" id="openCart" aria-label="Abrir carrito">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-text">
+        <h1>Pequeños detalles para días bonitos</h1>
+        <p>Accesorios, belleza, papelería y regalos elegidos con cariño, para ti o para sorprender a alguien especial.</p>
+        <div class="hero-cta">
+          <a href="#productos" class="btn btn-primary">Ver productos</a>
+          <a href="#categorias" class="btn btn-ghost">Explorar categorías</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="blob blob-1"></span>
+        <span class="blob blob-2"></span>
+        <span class="bubble b1">🎀</span>
+        <span class="bubble b2">💄</span>
+        <span class="bubble b3">✏️</span>
+        <span class="bubble b4">🎁</span>
+      </div>
+    </section>
+
+    <section class="section" id="categorias">
+      <h2>Encuentra lo tuyo</h2>
+      <div class="cat-grid">
+        <button class="cat-card" data-cat="accesorios"><span class="cat-icon">🎀</span><strong>Accesorios</strong><small>Para lucir cada día</small></button>
+        <button class="cat-card" data-cat="belleza"><span class="cat-icon">💄</span><strong>Belleza</strong><small>Cuidado y color</small></button>
+        <button class="cat-card" data-cat="papeleria"><span class="cat-icon">✏️</span><strong>Papelería</strong><small>Para crear y organizar</small></button>
+        <button class="cat-card" data-cat="regalos"><span class="cat-icon">🎁</span><strong>Regalos</strong><small>Listos para dar</small></button>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="productos">
+      <h2>Nuestros productos</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filtrar por categoría">
+        <button class="chip active" data-filter="todos">Todos</button>
+        <button class="chip" data-filter="accesorios">Accesorios</button>
+        <button class="chip" data-filter="belleza">Belleza</button>
+        <button class="chip" data-filter="papeleria">Papelería</button>
+        <button class="chip" data-filter="regalos">Regalos</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="section" id="contacto">
+      <div class="contact">
+        <div class="contact-info">
+          <h2>Escríbenos</h2>
+          <p>¿Buscas algo especial o quieres un regalo personalizado? Cuéntanos y te ayudamos.</p>
+          <ul>
+            <li>📍 Bogotá, Colombia</li>
+            <li>💬 WhatsApp: +57 300 000 0000</li>
+            <li>✉️ hola@kitty.com</li>
+            <li>📷 @kitty.tienda</li>
+          </ul>
+        </div>
+        <form class="contact-form" id="contactForm" novalidate>
+          <label>Nombre
+            <input type="text" name="nombre" required autocomplete="name">
+          </label>
+          <label>Correo
+            <input type="email" name="correo" required autocomplete="email">
+          </label>
+          <label>Mensaje
+            <textarea name="mensaje" rows="4" required></textarea>
+          </label>
+          <p class="form-msg" id="contactMsg" role="status"></p>
+          <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Hecho con cariño · © <span id="year"></span> Kitty</p>
+  </footer>
+
+  <!-- Carrito -->
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="Carrito de compras" aria-hidden="true">
+    <div class="drawer-head">
+      <h3 id="drawerTitle">Tu carrito</h3>
+      <button class="icon-btn" id="closeCart" aria-label="Cerrar carrito">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div id="cartView">
+        <ul class="cart-list" id="cartList"></ul>
+        <p class="empty" id="cartEmpty">Tu carrito está vacío. Agrega algo bonito desde los productos.</p>
+      </div>
+
+      <form class="checkout" id="checkoutForm" novalidate hidden>
+        <h4>Datos de entrega</h4>
+        <label>Nombre completo
+          <input type="text" name="nombre" required autocomplete="name">
+        </label>
+        <label>Teléfono
+          <input type="tel" name="telefono" required autocomplete="tel" inputmode="tel">
+        </label>
+        <label>Correo
+          <input type="email" name="correo" required autocomplete="email">
+        </label>
+        <label>Ciudad
+          <input type="text" name="ciudad" required autocomplete="address-level2">
+        </label>
+        <label>Dirección
+          <input type="text" name="direccion" required autocomplete="street-address">
+        </label>
+        <label>Notas (opcional)
+          <textarea name="notas" rows="2"></textarea>
+        </label>
+        <p class="form-msg" id="checkoutMsg" role="alert"></p>
+      </form>
+
+      <div class="success" id="success" hidden>
+        <span class="success-icon">💖</span>
+        <h4>¡Pedido recibido!</h4>
+        <p id="successText"></p>
+        <button class="btn btn-primary" id="successClose">Seguir comprando</button>
+      </div>
+    </div>
+
+    <div class="drawer-foot" id="drawerFoot">
+      <div class="total"><span>Total</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn btn-primary btn-block" id="checkoutBtn" disabled>Continuar con el pedido</button>
+      <button class="btn btn-ghost btn-block" id="backBtn" hidden>Volver al carrito</button>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
